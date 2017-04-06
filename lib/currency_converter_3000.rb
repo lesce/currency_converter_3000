@@ -67,26 +67,22 @@ module CurrencyConverter3000
     end
 
     def == money_object
-      if @currency == money_object.currency
-        amount == money_object.amount
-      else
-        amount == money_object.convert_to(@currency).amount
-      end
+      apply_comparison_operator('==', money_object)
     end
 
     def > money_object
-      if @currency == money_object.currency
-        amount > money_object.amount
-      else
-        amount > money_object.convert_to(@currency).amount
-      end
+      apply_comparison_operator('>', money_object)
     end
 
     def < money_object
+      apply_comparison_operator('<', money_object)
+    end
+
+    def apply_comparison_operator operator, money_object
       if @currency == money_object.currency
-        amount < money_object.amount
+        amount.send(operator, money_object.amount)
       else
-        amount < money_object.convert_to(@currency).amount
+        amount.send(operator, money_object.convert_to(@currency).amount)
       end
     end
 
