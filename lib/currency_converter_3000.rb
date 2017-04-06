@@ -51,34 +51,34 @@ module CurrencyConverter3000
     end
 
     def + money_object
-      (amount + money_object.convert_to(@currency).amount).round(2)
+      Money.new apply_operator(:+, money_object), @currency
     end
 
     def - money_object
-      (amount - money_object.convert_to(@currency).amount).round(2)
+      Money.new apply_operator(:-, money_object), @currency
     end
 
     def * number
-      (amount * number).round(2)
+      Money.new (amount * number).round(2), @currency
     end
 
     def / number
-      (amount / number).round(2)
+      Money.new (amount / number).round(2), @currency
     end
 
     def == money_object
-      apply_comparison_operator('==', money_object)
+      apply_operator(:==, money_object)
     end
 
     def > money_object
-      apply_comparison_operator('>', money_object)
+      apply_operator(:>, money_object)
     end
 
     def < money_object
-      apply_comparison_operator('<', money_object)
+      apply_operator(:<, money_object)
     end
 
-    def apply_comparison_operator operator, money_object
+    def apply_operator operator, money_object
       if @currency == money_object.currency
         amount.send(operator, money_object.amount)
       else

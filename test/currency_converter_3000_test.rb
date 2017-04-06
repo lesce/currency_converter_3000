@@ -39,19 +39,19 @@ class CurrencyConverter3000Test < Minitest::Test
   end
 
   def test_addition_method
-    assert_equal @eur_money + @usd_money, 49.01
+    assert_equal (@eur_money + @usd_money).inspect, "49.01 EUR"
   end
 
   def test_substraction_method
-    assert_equal @eur_money - @usd_money, 30.99
+    assert_equal (@eur_money - @usd_money).inspect, "30.99 EUR"
   end
 
   def test_division_method
-    assert_equal @eur_money / 7, 5.71
+    assert_equal (@eur_money / 7).inspect, "5.71 EUR"
   end
 
   def test_multiply_method
-    assert_equal @eur_money * 3, 120
+    assert_equal (@eur_money * 3).inspect, "120.00 EUR"
   end
 
   def test_comparisson_method
