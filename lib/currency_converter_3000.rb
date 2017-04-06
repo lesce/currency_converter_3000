@@ -26,7 +26,7 @@ module CurrencyConverter3000
     # These are the 4 Covered Conversion cases:
     # Currency -> Default Currency
     # Same Currency -> Same Currency
-    # Currency -> Currency
+    # Currency -> New Currency
     # Default Currency -> Currency
     def convert_to new_currency
       if new_currency == @@default_currency && new_currency != @currency
@@ -37,6 +37,8 @@ module CurrencyConverter3000
         self
       elsif new_currency != @@default_currency && @currency != @@default_currency
         # convert from non default currency to other non default currency
+        # Currency -> Default Currency
+        # Default Currency -> New Currency
         convert_to(@@default_currency).convert_to(new_currency)
       elsif @@conversion_hash[new_currency]
         # convert from default currency to non default currency
@@ -69,6 +71,22 @@ module CurrencyConverter3000
         amount == money_object.amount
       else
         amount == money_object.convert_to(@currency).amount
+      end
+    end
+
+    def > money_object
+      if @currency == money_object.currency
+        amount > money_object.amount
+      else
+        amount > money_object.convert_to(@currency).amount
+      end
+    end
+
+    def < money_object
+      if @currency == money_object.currency
+        amount < money_object.amount
+      else
+        amount < money_object.convert_to(@currency).amount
       end
     end
 

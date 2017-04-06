@@ -57,6 +57,10 @@ class CurrencyConverter3000Test < Minitest::Test
   def test_comparisson_method
     usd_money = CurrencyConverter3000::Money.new 44.40, 'USD'
     assert_equal @eur_money == @usd_money, false
-    assert_equal usd_money == @eur_money.convert_to('USD'), true
+    assert_equal usd_money == @eur_money, true
+    assert_equal usd_money > @eur_money, false
+    assert_equal usd_money < @eur_money, false
+    assert_equal @eur_money > @usd_money, true
+    assert_equal @eur_money < @usd_money, false
   end
 end
